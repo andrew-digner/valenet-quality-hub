@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 8  
 **Sprint:** Sprint 01  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -227,16 +227,16 @@ Responsáveis por:
 
 # Critérios de Aceite
 
-- [ ] API inicia corretamente.
-- [ ] Estrutura modular criada.
-- [ ] Configuração global funcionando.
-- [ ] ValidationPipe configurado.
-- [ ] Exception Filter funcionando.
-- [ ] Logger funcionando.
-- [ ] Endpoint /health funcionando.
-- [ ] Prefixo /api configurado.
-- [ ] Versionamento habilitado.
-- [ ] Estrutura preparada para novos módulos.
+- [x] API inicia corretamente.
+- [x] Estrutura modular criada.
+- [x] Configuração global funcionando.
+- [x] ValidationPipe configurado.
+- [x] Exception Filter funcionando.
+- [x] Logger funcionando.
+- [x] Endpoint /health funcionando.
+- [x] Prefixo /api configurado.
+- [x] Versionamento habilitado.
+- [x] Estrutura preparada para novos módulos.
 
 ---
 

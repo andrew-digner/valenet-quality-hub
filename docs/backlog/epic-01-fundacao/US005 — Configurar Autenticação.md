@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 13  
 **Sprint:** Sprint 01  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -233,15 +233,15 @@ Essas funcionalidades serão implementadas na próxima Epic.
 
 # Critérios de Aceite
 
-- [ ] Login funcionando.
-- [ ] JWT funcionando.
-- [ ] Refresh Token funcionando.
-- [ ] Logout funcionando.
-- [ ] AuthGuard funcionando.
-- [ ] RolesGuard funcionando.
-- [ ] Decorators funcionando.
-- [ ] Sessões registradas.
-- [ ] Auditoria de autenticação registrada.
+- [x] Login funcionando.
+- [x] JWT funcionando.
+- [x] Refresh Token funcionando.
+- [x] Logout funcionando.
+- [x] AuthGuard funcionando.
+- [x] RolesGuard funcionando.
+- [x] Decorators funcionando.
+- [x] Sessões registradas.
+- [x] Auditoria de autenticação registrada.
 
 ---
 

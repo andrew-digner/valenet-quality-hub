@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 5  
 **Sprint:** Sprint 1  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -112,14 +112,14 @@ Criar estrutura inicial da pasta docs.
 
 # Critérios de Aceite
 
-- [ ] Monorepo criado.
-- [ ] Workspace funcionando.
-- [ ] Dependências instaladas.
-- [ ] Lint funcionando.
-- [ ] Formatter funcionando.
-- [ ] Commit hooks configurados.
-- [ ] Estrutura de pastas criada.
-- [ ] Projeto executando sem erros.
+- [x] Monorepo criado.
+- [x] Workspace funcionando.
+- [x] Dependências instaladas.
+- [x] Lint funcionando.
+- [x] Formatter funcionando.
+- [x] Commit hooks configurados.
+- [x] Estrutura de pastas criada.
+- [x] Projeto executando sem erros.
 
 ---
 

@@ -21,6 +21,11 @@ RUN pnpm --filter @valenet/backend build
 RUN --mount=type=cache,id=valenet-pnpm-store,target=/pnpm/store \
     pnpm --filter @valenet/backend --prod deploy /prod/backend
 
+FROM build AS development
+ENV NODE_ENV=development
+EXPOSE 3001
+CMD ["pnpm", "--filter", "@valenet/backend", "dev"]
+
 FROM node:24-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app

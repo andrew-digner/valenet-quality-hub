@@ -4,17 +4,20 @@ import { join, relative, resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const backlogRoot = join(root, 'docs', 'backlog');
 const retiredIds = new Set(['US075', 'US076']);
+const ignoredDirectories = new Set(['.git', '.next', '.tmp', 'dist', 'node_modules']);
 const failures = [];
 
 const walk = (directory) =>
   readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    if (entry.isDirectory() && ignoredDirectories.has(entry.name)) {
+      return [];
+    }
+
     const path = join(directory, entry.name);
     return entry.isDirectory() ? walk(path) : [path];
   });
 
-const markdownFiles = walk(root).filter(
-  (path) => path.endsWith('.md') && !path.includes(`${join(root, 'node_modules')}`),
-);
+const markdownFiles = walk(root).filter((path) => path.endsWith('.md'));
 const storyFiles = walk(backlogRoot).filter((path) => /[/\\]US\d{3}[^/\\]*\.md$/u.test(path));
 const storyIds = storyFiles.map((path) => path.match(/US\d{3}/u)?.[0]).filter(Boolean);
 const uniqueIds = new Set(storyIds);

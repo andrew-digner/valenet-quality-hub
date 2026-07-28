@@ -21,6 +21,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "docs:check": "node scripts/validate-docs.mjs",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:restart": "docker compose restart",
+    "docker:ps": "docker compose ps",
     "prisma:generate": "pnpm --filter @valenet/backend prisma:generate",
     "prisma:validate": "pnpm --filter @valenet/backend prisma:validate",
     "prepare": "node scripts/prepare.mjs"

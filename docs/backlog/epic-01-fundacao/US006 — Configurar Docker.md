@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 8  
 **Sprint:** Sprint 01  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -167,14 +167,14 @@ Esses itens serão tratados em Epics futuras.
 
 # Critérios de Aceite
 
-- [ ] Docker Compose executa sem erros.
-- [ ] PostgreSQL disponível.
-- [ ] Redis disponível.
-- [ ] API inicia corretamente.
-- [ ] Frontend inicia corretamente.
-- [ ] Volumes persistentes configurados.
-- [ ] Health Checks funcionando.
-- [ ] Documentação criada.
+- [x] Docker Compose executa sem erros.
+- [x] PostgreSQL disponível.
+- [x] Redis disponível.
+- [x] API inicia corretamente.
+- [x] Frontend inicia corretamente.
+- [x] Volumes persistentes configurados.
+- [x] Health Checks funcionando.
+- [x] Documentação criada.
 
 ---
 

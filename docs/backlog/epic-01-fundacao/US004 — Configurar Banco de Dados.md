@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 8  
 **Sprint:** Sprint 01  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -199,15 +199,15 @@ Criar instruções para.
 
 # Critérios de Aceite
 
-- [ ] PostgreSQL configurado.
-- [ ] Prisma instalado.
-- [ ] Prisma Client funcionando.
-- [ ] Conexão estabelecida.
-- [ ] Migration inicial criada.
-- [ ] Prisma Studio funcionando.
-- [ ] Seeds configuradas.
-- [ ] Scripts funcionando.
-- [ ] Integração com NestJS concluída.
+- [x] PostgreSQL configurado.
+- [x] Prisma instalado.
+- [x] Prisma Client funcionando.
+- [x] Conexão estabelecida.
+- [x] Migration inicial criada.
+- [x] Prisma Studio funcionando.
+- [x] Seeds configuradas.
+- [x] Scripts funcionando.
+- [x] Integração com NestJS concluída.
 
 ---
 

@@ -2,6 +2,8 @@ packages:
   - apps/*
   - packages/*
 
+nodeLinker: hoisted
+
 injectWorkspacePackages: true
 
 syncInjectedDepsAfterScripts:
@@ -9,6 +11,9 @@ syncInjectedDepsAfterScripts:
 
 allowBuilds:
   '@prisma/engines': true
+  '@scarf/scarf': false
+  argon2: true
+  esbuild: true
   prisma: true
   sharp: true
   unrs-resolver: true

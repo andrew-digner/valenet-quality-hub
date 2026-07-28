@@ -1,0 +1,2 @@
+-- Initial database foundation.
+-- Business tables are intentionally introduced by their owning User Stories.

@@ -17,6 +17,13 @@ RUN --mount=type=cache,id=valenet-pnpm-store,target=/pnpm/store \
     pnpm install --offline --frozen-lockfile
 RUN pnpm --filter @valenet/frontend build
 
+FROM build AS development
+ENV HOSTNAME=0.0.0.0
+ENV NODE_ENV=development
+ENV PORT=3000
+EXPOSE 3000
+CMD ["pnpm", "--filter", "@valenet/frontend", "dev"]
+
 FROM node:24-alpine AS runtime
 ENV HOSTNAME=0.0.0.0
 ENV NODE_ENV=production

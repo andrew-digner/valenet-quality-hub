@@ -1,20 +1,12 @@
-import { Logger, VersioningType } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import { Logger } from '@nestjs/common';
 
-import { AppModule } from './app.module.js';
+import { createApplication } from './shared/application/create-application.js';
 
 const bootstrap = async (): Promise<void> => {
-  const app = await NestFactory.create(AppModule);
+  const app = await createApplication();
   const port = Number(process.env.BACKEND_PORT ?? 3001);
 
-  app.enableShutdownHooks();
-  app.enableVersioning({
-    defaultVersion: '1',
-    prefix: 'api/v',
-    type: VersioningType.URI,
-  });
-
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   Logger.log(`Backend disponível na porta ${port}.`, 'Bootstrap');
 };
 

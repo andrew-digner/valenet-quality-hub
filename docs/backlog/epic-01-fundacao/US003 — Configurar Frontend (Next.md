@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 8  
 **Sprint:** Sprint 01  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -278,15 +278,15 @@ Não implementar traduções.
 
 # Critérios de Aceite
 
-- [ ] Aplicação inicia corretamente.
-- [ ] Layout principal criado.
-- [ ] Navegação funcionando.
-- [ ] Providers configurados.
-- [ ] Tema funcionando.
-- [ ] Estrutura por Features criada.
-- [ ] Comunicação com API preparada.
-- [ ] Error Boundary funcionando.
-- [ ] Estrutura preparada para novos módulos.
+- [x] Aplicação inicia corretamente.
+- [x] Layout principal criado.
+- [x] Navegação funcionando.
+- [x] Providers configurados.
+- [x] Tema funcionando.
+- [x] Estrutura por Features criada.
+- [x] Comunicação com API preparada.
+- [x] Error Boundary funcionando.
+- [x] Estrutura preparada para novos módulos.
 
 ---
 

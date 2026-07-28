@@ -620,6 +620,10 @@ Se algum item estiver ausente, implementar.
 
 # Antes de Finalizar
 
+Todo agente deve atualizar o PROJECT_STATUS.md antes de finalizar qualquer tarefa.
+
+Nenhuma tarefa poderá ser considerada concluída se o PROJECT_STATUS.md não tiver sido atualizado.
+
 Executar.
 
 Lint
