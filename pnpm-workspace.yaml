@@ -1,0 +1,14 @@
+packages:
+  - apps/*
+  - packages/*
+
+injectWorkspacePackages: true
+
+syncInjectedDepsAfterScripts:
+  - build
+
+allowBuilds:
+  '@prisma/engines': true
+  prisma: true
+  sharp: true
+  unrs-resolver: true

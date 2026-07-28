@@ -1,0 +1,48 @@
+{
+  "name": "valenet-quality-hub",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Monorepo do Valenet Quality Hub.",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.9.0",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "pnpm --recursive --if-present run build",
+    "dev": "pnpm --parallel --filter @valenet/frontend --filter @valenet/backend run dev",
+    "dev:frontend": "pnpm --filter @valenet/frontend dev",
+    "dev:backend": "pnpm --filter @valenet/backend dev",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "pnpm --recursive --if-present run typecheck",
+    "test": "pnpm --recursive --if-present run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "docs:check": "node scripts/validate-docs.mjs",
+    "prisma:generate": "pnpm --filter @valenet/backend prisma:generate",
+    "prisma:validate": "pnpm --filter @valenet/backend prisma:validate",
+    "prepare": "node scripts/prepare.mjs"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx,json,md,yml,yaml,css}": [
+      "prettier --write"
+    ],
+    "*.{js,mjs,cjs,ts,tsx}": [
+      "eslint --fix --max-warnings=0"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "globals": "^17.8.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.2.0",
+    "prettier": "^3.9.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.65.0"
+  }
+}
