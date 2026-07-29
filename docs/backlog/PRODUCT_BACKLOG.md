@@ -1,7 +1,7 @@
 ﻿# Product Backlog Oficial
 
 **Produto:** Valenet Quality Hub  
-**Status:** Em planejamento  
+**Status:** Sprint 02 em validação; Sprint 03 não iniciada  
 **Fonte oficial:** este índice e os arquivos de épicos e User Stories deste diretório.
 
 ## Governança

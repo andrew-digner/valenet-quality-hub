@@ -5,7 +5,7 @@
 **Prioridade:** P1 (Alta)  
 **Story Points:** 8  
 **Sprint:** Sprint 02  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -168,13 +168,13 @@ Esses recursos serão implementados em futuras Epics.
 
 # Critérios de Aceite
 
-- [ ] Logging estruturado implementado.
-- [ ] Correlation ID funcionando.
-- [ ] Request ID funcionando.
-- [ ] Tratamento global de erros padronizado.
-- [ ] Endpoint /health expandido.
-- [ ] Métricas básicas disponíveis.
-- [ ] Performance monitorada.
+- [x] Logging estruturado implementado.
+- [x] Correlation ID funcionando.
+- [x] Request ID funcionando.
+- [x] Tratamento global de erros padronizado.
+- [x] Endpoint /health expandido.
+- [x] Métricas básicas disponíveis.
+- [x] Performance monitorada.
 
 ---
 

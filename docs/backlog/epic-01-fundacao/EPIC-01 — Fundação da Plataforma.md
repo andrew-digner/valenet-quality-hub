@@ -3,7 +3,7 @@
 **ID:** EPIC-01  
 **Release:** R1 — Fundação da Plataforma  
 **Prioridade:** P0 (Crítica)  
-**Status:** Backlog
+**Status:** In Progress
 
 ---
 

@@ -1,6 +1,7 @@
 # Valenet Quality Hub
 
-Fundação técnica do monorepo da plataforma de gestão da qualidade.
+Fundação técnica do monorepo da plataforma de gestão da qualidade. A Sprint 01
+está concluída e a Sprint 02 da versão `0.1.0` está em validação final.
 
 ## Pré-requisitos
 
@@ -42,6 +43,7 @@ pnpm dev
 - Backend: `http://localhost:3001`
 - Health check: `http://localhost:3001/health`
 - Swagger: `http://localhost:3001/api/docs`
+- Métricas: `http://localhost:3001/metrics`
 
 O backend expõe o health check técnico e a fundação de autenticação. APIs de
 negócio continuam fora do escopo.
@@ -114,6 +116,8 @@ pnpm format:check
 pnpm lint
 pnpm typecheck
 pnpm test
+pnpm test:coverage
+pnpm test:e2e
 pnpm prisma:validate
 pnpm build
 docker compose config
@@ -126,13 +130,17 @@ apps/
 ├── backend/        NestJS e Prisma, sem módulos de negócio
 └── frontend/       Next.js App Router, sem telas de negócio
 packages/
-└── shared/         Reserva para contratos compartilhados
+├── config/         Configurações compartilhadas de engenharia
+├── shared/         Reserva para contratos compartilhados
+└── ui/             Design System oficial
 docs/               Arquitetura, PRD e backlog
 database/           Modelo de dados documental
 scripts/            Validações da fundação
 ```
 
 Consulte `docs/DOCUMENTATION_GOVERNANCE.md` antes de qualquer implementação.
+Guias complementares estão em `docs/CONFIGURATION.md`,
+`docs/CONTRIBUTING.md`, `docs/OBSERVABILITY.md` e `docs/TESTING.md`.
 
 ## Banco de dados
 

@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  workflow_call:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: valenet_quality_hub_test
+          POSTGRES_PASSWORD: test
+          POSTGRES_USER: valenet
+        options: >-
+          --health-cmd "pg_isready -U valenet"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports: ['5432:5432']
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports: ['6379:6379']
+    env:
+      DATABASE_URL: postgresql://valenet:test@localhost:5432/valenet_quality_hub_test?schema=public
+      JWT_REFRESH_SECRET: ci-refresh-secret-with-at-least-32-characters
+      JWT_SECRET: ci-jwt-secret-with-at-least-32-characters
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version: 22
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm docs:check
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm prisma:validate
+      - run: pnpm prisma:generate
+      - run: pnpm --filter @valenet/backend prisma:migrate:deploy
+      - run: pnpm test
+      - run: pnpm build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            apps/backend/dist
+            apps/frontend/.next
+          retention-days: 7

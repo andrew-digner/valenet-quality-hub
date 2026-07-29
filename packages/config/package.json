@@ -1,0 +1,12 @@
+{
+  "name": "@valenet/config",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./eslint": "./eslint/index.mjs",
+    "./prettier": "./prettier/index.mjs",
+    "./typescript": "./typescript/tsconfig.json",
+    "./commitlint": "./commitlint/index.mjs"
+  }
+}

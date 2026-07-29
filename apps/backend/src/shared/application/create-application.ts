@@ -2,18 +2,17 @@ import { randomUUID } from 'node:crypto';
 
 import compression from '@fastify/compress';
 import helmet from '@fastify/helmet';
-import { Logger, ValidationPipe, VersioningType, type INestApplication } from '@nestjs/common';
+import { ValidationPipe, VersioningType, type INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from '../../app.module.js';
 import { GlobalExceptionFilter } from '../../common/filters/global-exception.filter.js';
-import { CORRELATION_ID_HEADER } from '../../common/http/http.constants.js';
 import { CorrelationIdInterceptor } from '../../common/interceptors/correlation-id.interceptor.js';
 import { RequestLoggingInterceptor } from '../../common/interceptors/request-logging.interceptor.js';
-
-import type { IncomingMessage } from 'node:http';
+import { StructuredLogger } from '../../common/logging/structured-logger.service.js';
+import { MetricsService } from '../../common/metrics/metrics.service.js';
 
 const configureOpenApi = (app: INestApplication): void => {
   const config = new DocumentBuilder()
@@ -27,15 +26,12 @@ const configureOpenApi = (app: INestApplication): void => {
 
 export const createApplication = async (): Promise<NestFastifyApplication> => {
   const adapter = new FastifyAdapter({
-    genReqId: (request: IncomingMessage) => {
-      const correlationId = request.headers[CORRELATION_ID_HEADER];
-      return typeof correlationId === 'string' && correlationId.length > 0
-        ? correlationId
-        : randomUUID();
-    },
+    genReqId: () => randomUUID(),
     logger: false,
   });
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, adapter);
+  const logger = app.get(StructuredLogger);
+  app.useLogger(logger);
 
   await app.register(helmet);
   await app.register(compression);
@@ -54,9 +50,11 @@ export const createApplication = async (): Promise<NestFastifyApplication> => {
     }),
   );
 
-  const logger = new Logger('HTTP');
   app.useGlobalFilters(new GlobalExceptionFilter(logger));
-  app.useGlobalInterceptors(new CorrelationIdInterceptor(), new RequestLoggingInterceptor(logger));
+  app.useGlobalInterceptors(
+    new CorrelationIdInterceptor(),
+    new RequestLoggingInterceptor(logger, app.get(MetricsService)),
+  );
   configureOpenApi(app);
 
   return app;

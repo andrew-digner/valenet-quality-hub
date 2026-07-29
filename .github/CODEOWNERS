@@ -1,0 +1,6 @@
+* @valenet/quality-hub-maintainers
+
+/.github/ @valenet/quality-hub-maintainers
+/apps/backend/ @valenet/quality-hub-maintainers
+/apps/frontend/ @valenet/quality-hub-maintainers
+/packages/ @valenet/quality-hub-maintainers

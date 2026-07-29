@@ -5,7 +5,7 @@
 **Prioridade:** P1 (Alta)  
 **Story Points:** 5  
 **Sprint:** Sprint 02  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -234,12 +234,12 @@ Esses recursos poderão ser implementados futuramente.
 
 # Critérios de Aceite
 
-- [ ] ConfigModule configurado.
-- [ ] Validação automática funcionando.
-- [ ] Configurações centralizadas.
-- [ ] Estrutura por ambiente criada.
-- [ ] Feature Flags preparadas.
-- [ ] Documentação criada.
+- [x] ConfigModule configurado.
+- [x] Validação automática funcionando.
+- [x] Configurações centralizadas.
+- [x] Estrutura por ambiente criada.
+- [x] Feature Flags preparadas.
+- [x] Documentação criada.
 
 ---
 

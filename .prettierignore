@@ -1,7 +1,7 @@
-node_modules
 .next
-dist
+.turbo
 coverage
-pnpm-lock.yaml
-apps/backend/src/generated/prisma
-apps/frontend/next-env.d.ts
+dist
+node_modules
+playwright-report
+test-results

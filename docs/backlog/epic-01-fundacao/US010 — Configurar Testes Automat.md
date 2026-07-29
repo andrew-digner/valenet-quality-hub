@@ -5,7 +5,7 @@
 **Prioridade:** P1 (Alta)  
 **Story Points:** 8  
 **Sprint:** Sprint 02  
-**Status:** Backlog
+**Status:** Review
 
 ---
 
@@ -213,13 +213,13 @@ Os testes E2E poderão ser executados em pipeline específica.
 
 # Critérios de Aceite
 
-- [ ] Jest configurado.
-- [ ] Vitest configurado.
-- [ ] Playwright configurado.
-- [ ] Estrutura de testes criada.
-- [ ] Cobertura configurada.
-- [ ] Pipeline executando testes.
-- [ ] Mocking implementado.
+- [x] Jest configurado.
+- [x] Vitest configurado.
+- [x] Playwright configurado.
+- [x] Estrutura de testes criada.
+- [x] Cobertura configurada.
+- [x] Pipeline executando testes.
+- [x] Mocking implementado.
 
 ---
 

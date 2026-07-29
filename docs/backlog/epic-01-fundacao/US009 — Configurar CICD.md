@@ -5,7 +5,7 @@
 **Prioridade:** P1 (Alta)  
 **Story Points:** 8  
 **Sprint:** Sprint 02  
-**Status:** Backlog
+**Status:** Review
 
 ---
 
@@ -166,13 +166,13 @@ Preparar estrutura para:
 
 # Critérios de Aceite
 
-- [ ] Workflow de CI criado.
-- [ ] Build automático funcionando.
-- [ ] Lint automático funcionando.
-- [ ] Type Check funcionando.
-- [ ] Testes executando automaticamente.
-- [ ] Pull Requests validados.
-- [ ] Estrutura preparada para CD.
+- [x] Workflow de CI criado.
+- [x] Build automático funcionando.
+- [x] Lint automático funcionando.
+- [x] Type Check funcionando.
+- [x] Testes executando automaticamente.
+- [x] Pull Requests validados.
+- [x] Estrutura preparada para CD.
 
 ---
 

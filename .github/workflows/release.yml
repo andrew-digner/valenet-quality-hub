@@ -1,0 +1,23 @@
+name: Release Preparation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate semantic version
+        run: node -e "const p=require('./package.json'); if(!/^\\d+\\.\\d+\\.\\d+$/.test(p.version)) process.exit(1)"
+      - name: Prepare release metadata
+        run: |
+          mkdir release
+          cp package.json release/package.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-metadata
+          path: release

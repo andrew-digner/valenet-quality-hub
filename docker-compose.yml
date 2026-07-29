@@ -59,6 +59,8 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-valenet}:${POSTGRES_PASSWORD:-change-me-for-local-development}@postgres:5432/${POSTGRES_DB:-valenet_quality_hub}?schema=public
       JWT_SECRET: ${JWT_SECRET:-local-development-jwt-secret-change-me}
       NODE_ENV: development
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       REDIS_URL: redis://redis:6379
     healthcheck:
       test:

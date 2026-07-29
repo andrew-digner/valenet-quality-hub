@@ -24,13 +24,16 @@ describe('Health API', () => {
 
     expect(response.statusCode).toBe(200);
     expect(response.headers['x-correlation-id']).toBe('test-correlation-id');
+    expect(response.headers['x-request-id']).toEqual(expect.any(String));
     expect(response.json()).toEqual({
       success: true,
       data: {
         status: 'ok',
         database: 'connected',
         environment: 'test',
+        redis: 'connected',
         version: '0.1.0',
+        worker: 'not_configured',
       },
       meta: { correlationId: 'test-correlation-id' },
     });

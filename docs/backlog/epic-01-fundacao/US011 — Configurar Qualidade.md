@@ -5,7 +5,7 @@
 **Prioridade:** P1 (Alta)  
 **Story Points:** 5  
 **Sprint:** Sprint 02  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -244,13 +244,13 @@ commitlint/
 
 # Critérios de Aceite
 
-- [ ] ESLint configurado.
-- [ ] Prettier configurado.
-- [ ] Husky funcionando.
-- [ ] Commitlint funcionando.
-- [ ] Lint Staged funcionando.
-- [ ] Imports organizados automaticamente.
-- [ ] Convenções documentadas.
+- [x] ESLint configurado.
+- [x] Prettier configurado.
+- [x] Husky funcionando.
+- [x] Commitlint funcionando.
+- [x] Lint Staged funcionando.
+- [x] Imports organizados automaticamente.
+- [x] Convenções documentadas.
 
 ---
 

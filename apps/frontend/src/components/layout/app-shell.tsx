@@ -1,3 +1,5 @@
+import { Breadcrumb, Header, Sidebar } from '@valenet/ui';
+
 import { ThemeToggle } from './theme-toggle';
 
 import type { ReactNode } from 'react';
@@ -5,14 +7,16 @@ import type { ReactNode } from 'react';
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="app-shell">
-      <aside className="sidebar" aria-label="Navegação principal">
-        <span className="brand">Valenet Quality Hub</span>
-      </aside>
+      <Sidebar>
+        <nav aria-label="Navegação principal">
+          <span className="brand">Valenet Quality Hub</span>
+        </nav>
+      </Sidebar>
       <div className="content-column">
-        <header className="header">
-          <span className="breadcrumb">Início</span>
+        <Header>
+          <Breadcrumb items={['Início']} />
           <ThemeToggle />
-        </header>
+        </Header>
         <main className="main-content">{children}</main>
       </div>
     </div>

@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 import './globals.css';
+import '@valenet/ui/styles.css';
 
 export const metadata: Metadata = {
   description: 'Plataforma enterprise para gestão da qualidade de atendimentos.',

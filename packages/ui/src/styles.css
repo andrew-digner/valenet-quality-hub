@@ -1,0 +1,323 @@
+@theme {
+  --color-brand-50: #eef7ff;
+  --color-brand-500: #0067c9;
+  --color-brand-700: #004b96;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --shadow-card: 0 8px 24px rgb(15 23 42 / 0.08);
+  --breakpoint-tablet: 48rem;
+  --breakpoint-notebook: 64rem;
+  --breakpoint-desktop: 80rem;
+  --animate-pulse-soft: pulse-soft 1.5s ease-in-out infinite;
+}
+
+:root {
+  --ui-background: #f5f7fb;
+  --ui-surface: #ffffff;
+  --ui-foreground: #172033;
+  --ui-muted: #64748b;
+  --ui-primary: #0057b8;
+  --ui-primary-foreground: #ffffff;
+  --ui-border: #dbe3ef;
+  --ui-danger: #b42318;
+  --ui-focus: #f5a623;
+  --ui-z-dropdown: 20;
+  --ui-z-overlay: 40;
+  --ui-z-toast: 60;
+}
+
+.dark {
+  --ui-background: #0f172a;
+  --ui-surface: #172033;
+  --ui-foreground: #f8fafc;
+  --ui-muted: #b4c0d0;
+  --ui-primary: #60a5fa;
+  --ui-primary-foreground: #071525;
+  --ui-border: #475569;
+  --ui-danger: #f97066;
+}
+
+.ui-button,
+.ui-input,
+.ui-card,
+.ui-alert,
+.ui-upload {
+  border-radius: var(--radius-md);
+}
+.ui-button {
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 1rem;
+}
+.ui-button:focus-visible,
+.ui-input:focus-visible,
+.ui-upload:focus-within {
+  outline: 3px solid var(--ui-focus);
+  outline-offset: 2px;
+}
+.ui-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.ui-button-primary {
+  background: var(--ui-primary);
+  color: var(--ui-primary-foreground);
+}
+.ui-button-secondary {
+  background: var(--ui-border);
+  color: var(--ui-foreground);
+}
+.ui-button-outline {
+  background: transparent;
+  border-color: var(--ui-border);
+  color: var(--ui-foreground);
+}
+.ui-button-ghost {
+  background: transparent;
+  color: var(--ui-foreground);
+}
+.ui-button-destructive {
+  background: var(--ui-danger);
+  color: white;
+}
+.ui-button-icon {
+  height: 2.75rem;
+  padding: 0;
+  width: 2.75rem;
+}
+.ui-button-sm {
+  min-height: 2.25rem;
+  padding: 0.4rem 0.75rem;
+}
+.ui-input {
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  color: var(--ui-foreground);
+  min-height: 2.75rem;
+  padding: 0.65rem 0.75rem;
+  width: 100%;
+}
+.ui-textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+.ui-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.ui-card {
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  box-shadow: var(--shadow-card);
+}
+.ui-card-header,
+.ui-card-content,
+.ui-card-footer {
+  padding: 1rem 1.25rem;
+}
+.ui-badge {
+  background: var(--ui-border);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+}
+.ui-alert {
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  padding: 1rem;
+}
+.ui-separator {
+  border: 0;
+  border-top: 1px solid var(--ui-border);
+}
+.ui-skeleton {
+  animation: pulse-soft 1.5s ease-in-out infinite;
+  background: var(--ui-border);
+  border-radius: var(--radius-sm);
+  min-height: 1rem;
+}
+.ui-spinner {
+  display: inline-flex;
+}
+.ui-spinner svg {
+  animation: spin 1s linear infinite;
+}
+.ui-sr-only {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  clip: rect(0, 0, 0, 0);
+}
+.ui-progress {
+  background: var(--ui-border);
+  border-radius: 999px;
+  height: 0.5rem;
+  overflow: hidden;
+}
+.ui-progress span {
+  background: var(--ui-primary);
+  display: block;
+  height: 100%;
+}
+.ui-empty-state {
+  padding: 3rem 1rem;
+  text-align: center;
+}
+.ui-search-input {
+  align-items: center;
+  background: var(--ui-surface);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 0.75rem;
+}
+.ui-search-input input {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  min-height: 2.75rem;
+  outline: 0;
+  width: 100%;
+}
+.ui-checkbox {
+  height: 1.125rem;
+  width: 1.125rem;
+  accent-color: var(--ui-primary);
+}
+.ui-switch {
+  appearance: none;
+  background: var(--ui-border);
+  border-radius: 999px;
+  height: 1.5rem;
+  position: relative;
+  width: 2.75rem;
+}
+.ui-switch:checked {
+  background: var(--ui-primary);
+}
+.ui-form-field {
+  margin-bottom: 1rem;
+}
+.ui-validation-message {
+  color: var(--ui-danger);
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+.ui-upload {
+  align-items: center;
+  border: 1px dashed var(--ui-border);
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+.ui-avatar {
+  align-items: center;
+  background: var(--ui-border);
+  border-radius: 50%;
+  display: inline-flex;
+  height: 2.5rem;
+  justify-content: center;
+  overflow: hidden;
+  width: 2.5rem;
+}
+.ui-avatar img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.ui-breadcrumb,
+.ui-pagination,
+.ui-stepper {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+}
+.ui-breadcrumb li {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+.ui-breadcrumb svg {
+  height: 1rem;
+  width: 1rem;
+}
+.ui-table-container {
+  overflow-x: auto;
+}
+.ui-table {
+  border-collapse: collapse;
+  min-width: 40rem;
+  width: 100%;
+}
+.ui-table th,
+.ui-table td {
+  border-bottom: 1px solid var(--ui-border);
+  padding: 0.75rem;
+  text-align: left;
+}
+.ui-stat-card {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.25rem;
+}
+.ui-stat-card strong {
+  font-size: 2rem;
+}
+.ui-timeline {
+  border-left: 2px solid var(--ui-border);
+  padding-left: 1.5rem;
+}
+.ui-timeline li {
+  margin-bottom: 1rem;
+}
+.ui-sidebar {
+  background: #003b7a;
+  color: white;
+  padding: 1.5rem;
+}
+.ui-header {
+  align-items: center;
+  background: var(--ui-surface);
+  border-bottom: 1px solid var(--ui-border);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes pulse-soft {
+  50% {
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

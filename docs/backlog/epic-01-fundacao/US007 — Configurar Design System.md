@@ -5,7 +5,7 @@
 **Prioridade:** P0 (Crítica)  
 **Story Points:** 13  
 **Sprint:** Sprint 02  
-**Status:** Backlog
+**Status:** Done
 
 ---
 
@@ -270,15 +270,15 @@ Garantir:
 
 # Critérios de Aceite
 
-- [ ] Design System configurado.
-- [ ] Tokens definidos.
-- [ ] Light Theme funcionando.
-- [ ] Dark Theme funcionando.
-- [ ] Componentes básicos implementados.
-- [ ] Componentes de formulário implementados.
-- [ ] Componentes de dados implementados.
-- [ ] Componentes responsivos.
-- [ ] Componentes acessíveis.
+- [x] Design System configurado.
+- [x] Tokens definidos.
+- [x] Light Theme funcionando.
+- [x] Dark Theme funcionando.
+- [x] Componentes básicos implementados.
+- [x] Componentes de formulário implementados.
+- [x] Componentes de dados implementados.
+- [x] Componentes responsivos.
+- [x] Componentes acessíveis.
 
 ---
 

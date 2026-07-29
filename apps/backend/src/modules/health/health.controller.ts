@@ -17,4 +17,16 @@ export class HealthController {
   async getHealth(): Promise<HealthStatus> {
     return this.healthService.getHealth();
   }
+
+  @Get('live')
+  @ApiOperation({ summary: 'Consulta se o processo da API está ativo' })
+  getLiveness(): { status: 'ok' } {
+    return { status: 'ok' };
+  }
+
+  @Get('ready')
+  @ApiOperation({ summary: 'Consulta se as dependências da API estão prontas' })
+  async getReadiness(): Promise<HealthStatus> {
+    return this.healthService.getHealth();
+  }
 }

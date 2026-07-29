@@ -3,33 +3,33 @@
 - Nome: Valenet Quality Hub
 - Data da última atualização: 28/07/2026
 - Versão: 0.1.0
-- Sprint atual: Sprint 01 — Fundação da Plataforma
-- Última entrega: Sprint 01 — Fundação da Plataforma concluída
-- Próxima entrega: planejamento da Sprint 02, sem implementação iniciada
+- Sprint atual: Sprint 02 — Fundação Técnica
+- Última entrega: implementação de US007–US012 concluída; homologação pendente
+- Próxima entrega: concluir validações de US009 e US010; Sprint 03 não iniciada
 
 # Status Geral
 
 | Item                 | Status                                                                 |
 | -------------------- | ---------------------------------------------------------------------- |
-| Sprint atual         | Sprint 01 — Concluída (6 de 6 histórias concluídas)                    |
-| Percentual concluído | 7,5% geral; 100% da Sprint 01                                          |
+| Sprint atual         | Sprint 02 — Em validação (4 Done, 2 em Review)                         |
+| Percentual concluído | 12,5% geral; 66,7% da Sprint 02                                        |
 | Build                | Aprovado para backend, frontend e imagens Docker                       |
-| Docker               | PostgreSQL, Redis e API healthy; frontend disponível                   |
+| Docker               | Validação bloqueada: CLI Docker indisponível neste ambiente            |
 | PostgreSQL           | Disponível, migrations aplicadas e integração validada                 |
 | Frontend             | Fundação responsiva concluída na US003; sem funcionalidades de negócio |
 | Backend              | Fundação, health check, banco e autenticação concluídos                |
 | Prisma               | Schema válido, client gerado, migrations e seed executados             |
-| Testes               | 8 testes backend e 1 teste frontend aprovados                          |
+| Testes               | Suíte base já aprovou 11; última repetição teve timeout no E2E de auth |
 | Lint                 | Aprovado sem warnings                                                  |
 | Typecheck            | Aprovado em modo strict                                                |
-| GitHub               | Repositório remoto configurado; GitHub Actions ainda ausente           |
+| GitHub               | CI, PR validation, release preparation e Dependabot configurados       |
 
 # Progresso das Sprints
 
 | Sprint    | Status       | Percentual | Data início | Data conclusão |
 | --------- | ------------ | ---------: | ----------- | -------------- |
 | Sprint 01 | Concluída    |       100% | 28/07/2026  | 28/07/2026     |
-| Sprint 02 | Não iniciada |         0% | —           | —              |
+| Sprint 02 | Em validação |      66,7% | 28/07/2026  | —              |
 | Sprint 03 | Não iniciada |         0% | —           | —              |
 | Sprint 04 | Não iniciada |         0% | —           | —              |
 | Sprint 05 | Não iniciada |         0% | —           | —              |
@@ -59,12 +59,12 @@
 | US004 | Configurar Banco de Dados (PostgreSQL + Prisma)                   | EPIC-01 | Concluída | Não atribuído | US001, US002        | Sprint 01; persistência validada             |
 | US005 | Configurar Autenticação e Autorização                             | EPIC-01 | Concluída | Não atribuído | US001, US002, US004 | Sprint 01; autenticação e RBAC fundacional   |
 | US006 | Configurar Docker e Ambiente Local                                | EPIC-01 | Concluída | Não atribuído | US001–US004         | Sprint 01; ambiente local validado           |
-| US007 | Configurar Design System                                          | EPIC-01 | Backlog   | Não atribuído | US003               | Sprint 02                                    |
-| US008 | Configurar Observabilidade                                        | EPIC-01 | Backlog   | Não atribuído | US002, US004        | Sprint 02                                    |
-| US009 | Configurar CI/CD                                                  | EPIC-01 | Backlog   | Não atribuído | US001, US002        | Sprint 02                                    |
-| US010 | Configurar Testes Automatizados                                   | EPIC-01 | Backlog   | Não atribuído | US002, US003        | Sprint 02                                    |
-| US011 | Configurar Qualidade de Código                                    | EPIC-01 | Backlog   | Não atribuído | US001               | Sprint 02                                    |
-| US012 | Configurar Gerenciamento de Configurações e Variáveis de Ambiente | EPIC-01 | Backlog   | Não atribuído | US002, US004        | Sprint 02                                    |
+| US007 | Configurar Design System                                          | EPIC-01 | Concluída | Não atribuído | US003               | Sprint 02; `packages/ui`                     |
+| US008 | Configurar Observabilidade                                        | EPIC-01 | Concluída | Não atribuído | US002, US004        | Sprint 02; logs, métricas e health           |
+| US009 | Configurar CI/CD                                                  | EPIC-01 | Review    | Não atribuído | US001, US002        | Docker CLI indisponível para homologação     |
+| US010 | Configurar Testes Automatizados                                   | EPIC-01 | Review    | Não atribuído | US002, US003        | Cobertura global abaixo da meta              |
+| US011 | Configurar Qualidade de Código                                    | EPIC-01 | Concluída | Não atribuído | US001               | Sprint 02; lint, hooks e commits             |
+| US012 | Configurar Gerenciamento de Configurações e Variáveis de Ambiente | EPIC-01 | Concluída | Não atribuído | US002, US004        | Sprint 02; ConfigModule e Zod                |
 | US013 | Gerenciar Usuários                                                | EPIC-02 | Backlog   | Não atribuído | US014               | Sprint 03                                    |
 | US014 | Gerenciar Perfis (Roles)                                          | EPIC-02 | Backlog   | Não atribuído | US013, US015        | Sprint 03                                    |
 | US015 | Gerenciar Permissões                                              | EPIC-02 | Backlog   | Não atribuído | US014               | Sprint 03                                    |
@@ -139,28 +139,30 @@ Legenda: `Backlog` = não iniciada; `Em andamento` = execução iniciada; `Concl
 # Última entrega
 
 - Data: 28/07/2026
-- Resumo: Sprint 01 concluída integralmente com monorepo, backend, frontend, PostgreSQL/Prisma, autenticação/autorização e ambiente Docker local.
-- Arquivos alterados: aplicações backend e frontend, schema e migrations Prisma, Dockerfiles/Compose, configurações do workspace, testes e documentação da Sprint 01.
-- Validações executadas: documentação, formatação, lint, typecheck, 9 testes, Prisma validate/generate/migrate/seed, builds Next.js/NestJS/Docker, Compose e health checks reais.
-- Critérios atendidos: 6 de 6 histórias da Sprint 01 em Done; PostgreSQL, Redis e API healthy; frontend disponível; nenhuma história da Sprint 02 iniciada.
+- Resumo: US007–US012 implementadas; US007, US008, US011 e US012 concluídas; US009 e US010 em Review.
+- Arquivos alterados: `packages/ui`, `packages/config`, backend, frontend, workflows GitHub, testes, configuração de ambiente e documentação.
+- Validações executadas: documentação, formatação, lint, typecheck, 11 testes, Prisma validate/generate e builds Next.js/NestJS.
+- Critérios pendentes: Docker build/up/ps não executados por ausência da CLI; cobertura backend em 66,15% statements, 57,95% branches, 52,7% functions e 63,84% lines; repetição final teve timeout no setup do E2E de autenticação; nenhuma US013+ iniciada.
 
 # Próxima prioridade
 
-- Próxima User Story: US007 — Configurar Design System.
-- Objetivo: planejar a Sprint 02 antes de iniciar qualquer implementação.
-- Dependências: US003 concluída.
+- Próxima prioridade: homologar US009 em ambiente com Docker e elevar a cobertura da US010 às metas.
+- Objetivo: encerrar a Sprint 02 antes de qualquer trabalho de Sprint 03.
+- Dependências: Docker Desktop/CLI disponível e ampliação da suíte automatizada.
 
 # Pendências
 
-- Criar o pipeline GitHub Actions na US009.
 - Definir responsáveis pelas User Stories.
 - Definir datas de início e conclusão das sprints futuras.
+- Configurar branch protection no GitHub para tornar os checks e reviews obrigatórios.
+- Executar `docker compose build`, `docker compose up -d` e `docker compose ps` em host com Docker.
+- Elevar cobertura backend para 80/75/80/80 e ampliar cobertura do Design System.
 
 # Riscos
 
 ## Riscos técnicos
 
-- A ausência de CI permite divergência entre validações locais e o repositório remoto.
+- Branch protection depende de configuração administrativa no GitHub.
 - O schema Prisma inicial ainda não representa o modelo de negócio completo, que depende das histórias autorizadas.
 
 ## Riscos arquiteturais
@@ -197,14 +199,15 @@ Legenda: `Backlog` = não iniciada; `Em andamento` = execução iniciada; `Concl
 | Sprint 01 | 28/07/2026 | US001, US002 e US003 registradas como concluídas; Sprint 01 em 50%.                                                |
 | Sprint 01 | 28/07/2026 | Criado o sistema oficial de acompanhamento em `PROJECT_STATUS.md` e atualizada a regra obrigatória no `AGENTS.md`. |
 | Sprint 01 | 28/07/2026 | US004, US005 e US006 concluídas; Sprint 01 validada integralmente e encerrada em 100%.                             |
+| Sprint 02 | 28/07/2026 | Implementação concluída; US009 e US010 em Review por Docker indisponível e cobertura insuficiente.                 |
 
 # Métricas
 
 | Métrica               | Valor |
 | --------------------- | ----: |
 | Total de User Stories |    80 |
-| Concluídas            |     6 |
-| Em andamento          |     0 |
-| Backlog               |    74 |
+| Concluídas            |    10 |
+| Em andamento          |     2 |
+| Backlog               |    68 |
 | Bloqueadas            |     0 |
-| Percentual geral      |  7,5% |
+| Percentual geral      | 12,5% |
