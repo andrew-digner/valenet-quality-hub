@@ -1,3 +1,29 @@
+/* eslint-disable @typescript-eslint/no-require-imports -- Jest setup is loaded as CommonJS. */
+const path = require('node:path');
+
+const dotenv = require('dotenv');
+
+const workspaceRoot = path.resolve(__dirname, '../../..');
+
+dotenv.config({
+  override: false,
+  path: [
+    path.join(workspaceRoot, '.env.test'),
+    path.join(workspaceRoot, '.env.local'),
+    path.join(workspaceRoot, '.env.development'),
+  ],
+  quiet: true,
+});
+
+if (process.env.DATABASE_URL) {
+  const databaseUrl = new URL(process.env.DATABASE_URL);
+  const databaseName = databaseUrl.pathname.replace(/^\//, '');
+
+  process.env.POSTGRES_USER ||= decodeURIComponent(databaseUrl.username);
+  process.env.POSTGRES_PASSWORD ||= decodeURIComponent(databaseUrl.password);
+  process.env.POSTGRES_DB ||= decodeURIComponent(databaseName);
+}
+
 const requiredEnvironmentVariables = [
   'DATABASE_URL',
   'JWT_REFRESH_SECRET',

@@ -42,23 +42,17 @@ services:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
-      target: development
-    command:
-      [
-        'sh',
-        '-c',
-        'pnpm --filter @valenet/backend prisma:migrate:deploy && pnpm --filter @valenet/backend dev',
-      ]
+      target: runtime
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       redis:
         condition: service_healthy
     environment:
       BACKEND_PORT: 3001
       DATABASE_URL: postgresql://${POSTGRES_USER:-valenet}:${POSTGRES_PASSWORD:-change-me-for-local-development}@postgres:5432/${POSTGRES_DB:-valenet_quality_hub}?schema=public
       JWT_SECRET: ${JWT_SECRET:-local-development-jwt-secret-change-me}
-      NODE_ENV: development
+      NODE_ENV: production
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_URL: redis://redis:6379
@@ -76,9 +70,19 @@ services:
       start_period: 20s
     ports:
       - '${BACKEND_PORT:-3001}:3001'
-    volumes:
-      - .:/workspace
-      - backend_node_modules:/workspace/node_modules
+    networks:
+      - quality_hub_private
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+      target: migration
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-valenet}:${POSTGRES_PASSWORD:-change-me-for-local-development}@postgres:5432/${POSTGRES_DB:-valenet_quality_hub}?schema=public
     networks:
       - quality_hub_private
 
@@ -86,25 +90,31 @@ services:
     build:
       context: .
       dockerfile: apps/frontend/Dockerfile
-      target: development
+      target: runtime
     depends_on:
       backend:
         condition: service_healthy
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:${BACKEND_PORT:-3001}/api/v1
-      NODE_ENV: development
-      WATCHPACK_POLLING: 'true'
+      NODE_ENV: production
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3000').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
     ports:
       - '${FRONTEND_PORT:-3000}:3000'
-    volumes:
-      - .:/workspace
-      - frontend_node_modules:/workspace/node_modules
     networks:
       - quality_hub_private
 
 volumes:
-  backend_node_modules:
-  frontend_node_modules:
   postgres_data:
   redis_data:
 

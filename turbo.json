@@ -21,6 +21,15 @@
       "outputs": ["coverage/**"]
     },
     "test:coverage": {
+      "env": [
+        "DATABASE_URL",
+        "JWT_REFRESH_SECRET",
+        "JWT_SECRET",
+        "NODE_ENV",
+        "POSTGRES_DB",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_USER"
+      ],
       "outputs": ["coverage/**"]
     },
     "typecheck": {

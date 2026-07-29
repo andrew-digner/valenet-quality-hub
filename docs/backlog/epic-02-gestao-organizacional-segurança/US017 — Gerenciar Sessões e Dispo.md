@@ -8,9 +8,9 @@
 
 **Story Points:** 8
 
-**Sprint:** Sprint 04
+**Sprint:** Sprint 03
 
-**Status:** Backlog
+**Status:** Done
 
 ---
 

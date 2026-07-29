@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { AuthAuditEvent, UserStatus } from '@prisma/client';
 import { hash, verify } from 'argon2';
 
+import { AdministrationService } from '../../administration/services/administration.service.js';
 import { AuthRepository } from '../repositories/auth.repository.js';
 
 import type { CreateSessionDto } from '../dto/create-session.dto.js';
@@ -20,6 +21,7 @@ export class AuthService {
     @Inject(AuthRepository) private readonly repository: AuthRepository,
     @Inject(JwtService) private readonly jwtService: JwtService,
     @Inject(ConfigService) private readonly config: ConfigService,
+    @Inject(AdministrationService) private readonly administration: AdministrationService,
   ) {}
 
   async login(dto: CreateSessionDto, metadata: RequestMetadata): Promise<TokenPair> {
@@ -45,6 +47,7 @@ export class AuthService {
       userId: user.id,
       metadata,
     });
+    await this.repository.updateLastAccess(user.id);
     return this.issueTokens(user.id, email, session.id, refreshToken);
   }
 
@@ -100,12 +103,14 @@ export class AuthService {
     sessionId: string,
     refreshToken: string,
   ): Promise<TokenPair> {
+    const authorization = await this.administration.authorization(userId);
+    if (!authorization) throw new UnauthorizedException();
     const payload: AuthenticatedUser = {
       id: userId,
       email,
       sessionId,
-      roles: [],
-      permissions: [],
+      roles: authorization.roles,
+      permissions: authorization.permissions,
     };
     return {
       accessToken: await this.jwtService.signAsync(payload, {

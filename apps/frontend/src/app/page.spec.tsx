@@ -7,6 +7,6 @@ describe('FoundationPage', () => {
   it('identifies the product', () => {
     render(<FoundationPage />);
 
-    expect(screen.getByRole('heading', { name: 'Valenet Quality Hub' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Dashboard administrativo' })).toBeInTheDocument();
   });
 });

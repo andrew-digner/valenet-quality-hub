@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ObservabilityModule } from './common/observability.module.js';
 import { configurationFactories, validateEnvironment } from './config/index.js';
 import { DatabaseModule } from './database/database.module.js';
+import { AdministrationModule } from './modules/administration/administration.module.js';
+import { AuditModule } from './modules/audit/audit.module.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { HealthModule } from './modules/health/health.module.js';
 
@@ -23,7 +25,9 @@ import { HealthModule } from './modules/health/health.module.js';
     }),
     ObservabilityModule,
     DatabaseModule,
+    AuditModule,
     AuthModule,
+    AdministrationModule,
     HealthModule,
   ],
 })

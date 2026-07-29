@@ -1,3 +1,4 @@
+import { RedisHealthService } from '../src/modules/health/redis-health.service.js';
 import { createApplication } from '../src/shared/application/create-application.js';
 
 import type { NestFastifyApplication } from '@nestjs/platform-fastify';
@@ -9,6 +10,7 @@ describe('Health API', () => {
     app = await createApplication();
     await app.init();
     await app.getHttpAdapter().getInstance().ready();
+    jest.spyOn(app.get(RedisHealthService), 'isHealthy').mockResolvedValue(true);
   });
 
   afterAll(async () => {

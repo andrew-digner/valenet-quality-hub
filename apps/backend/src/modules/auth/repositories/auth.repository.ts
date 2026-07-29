@@ -43,6 +43,10 @@ export class AuthRepository {
     return this.prisma.authSession.update({ where: { id }, data: { revokedAt: new Date() } });
   }
 
+  async updateLastAccess(id: string): Promise<void> {
+    await this.prisma.user.update({ where: { id }, data: { lastAccessAt: new Date() } });
+  }
+
   async recordAudit(input: {
     event: AuthAuditEvent;
     email: string;

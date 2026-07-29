@@ -10,8 +10,34 @@ enum UserStatus {
   ACTIVE
   INACTIVE
   BLOCKED
+  SUSPENDED
+  PENDING_ACTIVATION
 
   @@map("user_status")
+}
+
+enum AuditOperation {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  EXPORT
+  IMPORT
+  EXECUTE
+  APPROVE
+  REJECT
+  VIEW
+
+  @@map("audit_operation")
+}
+
+enum AuditResult {
+  SUCCESS
+  FAILURE
+  DENIED
+
+  @@map("audit_result")
 }
 
 enum AuthAuditEvent {
@@ -24,29 +50,203 @@ enum AuthAuditEvent {
   @@map("auth_audit_event")
 }
 
-model User {
-  id           String         @id @default(uuid()) @db.Uuid
-  email        String         @unique @db.VarChar(255)
-  passwordHash String         @map("password_hash") @db.VarChar(255)
-  status       UserStatus     @default(ACTIVE)
-  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
-  sessions     AuthSession[]
-  auditEvents  AuthAuditLog[]
+model Company {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String   @db.VarChar(160)
+  tradeName   String?  @map("trade_name") @db.VarChar(160)
+  document    String   @unique @db.VarChar(14)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+  units       Unit[]
+  areas       Area[]
+  positions   Position[]
+  users       User[]
 
+  @@map("companies")
+}
+
+model Unit {
+  id        String   @id @default(uuid()) @db.Uuid
+  companyId String   @map("company_id") @db.Uuid
+  name      String   @db.VarChar(160)
+  code      String   @db.VarChar(50)
+  city      String?  @db.VarChar(100)
+  state     String?  @db.Char(2)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+  company   Company  @relation(fields: [companyId], references: [id])
+  areas     Area[]
+  users     User[]
+
+  @@unique([companyId, code])
+  @@map("units")
+}
+
+model Area {
+  id        String   @id @default(uuid()) @db.Uuid
+  companyId String   @map("company_id") @db.Uuid
+  unitId    String?  @map("unit_id") @db.Uuid
+  name      String   @db.VarChar(160)
+  code      String   @db.VarChar(50)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+  company   Company  @relation(fields: [companyId], references: [id])
+  unit      Unit?    @relation(fields: [unitId], references: [id])
+  teams     Team[]
+  users     User[]
+
+  @@unique([companyId, code])
+  @@map("areas")
+}
+
+model Team {
+  id        String   @id @default(uuid()) @db.Uuid
+  areaId    String   @map("area_id") @db.Uuid
+  name      String   @db.VarChar(160)
+  code      String   @db.VarChar(50)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+  area      Area     @relation(fields: [areaId], references: [id])
+  users     User[]
+
+  @@unique([areaId, code])
+  @@map("teams")
+}
+
+model Position {
+  id        String   @id @default(uuid()) @db.Uuid
+  companyId String   @map("company_id") @db.Uuid
+  name      String   @db.VarChar(120)
+  code      String   @db.VarChar(50)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+  company   Company  @relation(fields: [companyId], references: [id])
+  users     User[]
+
+  @@unique([companyId, code])
+  @@map("positions")
+}
+
+model User {
+  id                 String      @id @default(uuid()) @db.Uuid
+  name               String      @default("") @db.VarChar(160)
+  socialName         String?     @map("social_name") @db.VarChar(160)
+  registration       String      @unique @default(dbgenerated("gen_random_uuid()::text")) @db.VarChar(50)
+  email              String      @unique @db.VarChar(255)
+  phone              String?     @db.VarChar(30)
+  document           String?     @unique @db.VarChar(11)
+  passwordHash       String      @map("password_hash") @db.VarChar(255)
+  status             UserStatus  @default(ACTIVE)
+  mustChangePassword Boolean     @default(false) @map("must_change_password")
+  lastAccessAt       DateTime?   @map("last_access_at") @db.Timestamptz(6)
+  companyId          String?     @map("company_id") @db.Uuid
+  unitId             String?     @map("unit_id") @db.Uuid
+  areaId             String?     @map("area_id") @db.Uuid
+  teamId             String?     @map("team_id") @db.Uuid
+  positionId         String?     @map("position_id") @db.Uuid
+  supervisorId       String?     @map("supervisor_id") @db.Uuid
+  createdAt          DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt          DateTime?   @map("deleted_at") @db.Timestamptz(6)
+  company            Company?    @relation(fields: [companyId], references: [id])
+  unit               Unit?       @relation(fields: [unitId], references: [id])
+  area               Area?       @relation(fields: [areaId], references: [id])
+  team               Team?       @relation(fields: [teamId], references: [id])
+  position           Position?   @relation(fields: [positionId], references: [id])
+  supervisor         User?       @relation("UserSupervisor", fields: [supervisorId], references: [id])
+  reports            User[]      @relation("UserSupervisor")
+  sessions           AuthSession[]
+  authAuditEvents    AuthAuditLog[]
+  roles              UserRole[]
+  auditEvents        AuditLog[]  @relation("AuditActor")
+
+  @@index([status, deletedAt])
+  @@index([companyId, unitId, areaId, teamId])
   @@map("users")
+}
+
+model Role {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String           @unique @db.VarChar(120)
+  code        String           @unique @db.VarChar(80)
+  description String?          @db.VarChar(500)
+  hierarchy   Int              @default(0)
+  isActive    Boolean          @default(true) @map("is_active")
+  isSystem    Boolean          @default(false) @map("is_system")
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime?        @map("deleted_at") @db.Timestamptz(6)
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String           @id @default(uuid()) @db.Uuid
+  name        String           @db.VarChar(160)
+  code        String           @unique @db.VarChar(120)
+  module      String           @db.VarChar(60)
+  resource    String           @db.VarChar(60)
+  action      String           @db.VarChar(60)
+  description String?          @db.VarChar(500)
+  isActive    Boolean          @default(true) @map("is_active")
+  isSystem    Boolean          @default(false) @map("is_system")
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime?        @map("deleted_at") @db.Timestamptz(6)
+  roles       RolePermission[]
+
+  @@index([module, resource, action])
+  @@map("permissions")
+}
+
+model UserRole {
+  userId    String   @map("user_id") @db.Uuid
+  roleId    String   @map("role_id") @db.Uuid
+  isDefault Boolean  @default(false) @map("is_default")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      Role     @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+  @@map("user_roles")
+}
+
+model RolePermission {
+  roleId      String     @map("role_id") @db.Uuid
+  permissionId String    @map("permission_id") @db.Uuid
+  role        Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission  Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
 }
 
 model AuthSession {
   id               String    @id @default(uuid()) @db.Uuid
   userId           String    @map("user_id") @db.Uuid
   refreshTokenHash String    @map("refresh_token_hash") @db.VarChar(255)
-  ipAddress         String?   @map("ip_address") @db.VarChar(64)
-  userAgent         String?   @map("user_agent") @db.VarChar(512)
-  expiresAt         DateTime  @map("expires_at") @db.Timestamptz(6)
-  revokedAt         DateTime? @map("revoked_at") @db.Timestamptz(6)
-  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress        String?   @map("ip_address") @db.VarChar(64)
+  userAgent        String?   @map("user_agent") @db.VarChar(512)
+  deviceName       String?   @map("device_name") @db.VarChar(120)
+  browser          String?   @db.VarChar(120)
+  operatingSystem  String?   @map("operating_system") @db.VarChar(120)
+  lastActivityAt   DateTime  @default(now()) @map("last_activity_at") @db.Timestamptz(6)
+  expiresAt        DateTime  @map("expires_at") @db.Timestamptz(6)
+  revokedAt        DateTime? @map("revoked_at") @db.Timestamptz(6)
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, revokedAt])
   @@map("auth_sessions")
@@ -64,4 +264,30 @@ model AuthAuditLog {
 
   @@index([userId, createdAt])
   @@map("auth_audit_logs")
+}
+
+model AuditLog {
+  id            String         @id @default(uuid()) @db.Uuid
+  actorId       String?        @map("actor_id") @db.Uuid
+  actorName     String?        @map("actor_name") @db.VarChar(160)
+  actorRoles    String[]       @map("actor_roles")
+  module        String         @db.VarChar(60)
+  resource      String         @db.VarChar(80)
+  resourceId    String?        @map("resource_id") @db.VarChar(80)
+  operation     AuditOperation
+  result        AuditResult    @default(SUCCESS)
+  ipAddress     String?        @map("ip_address") @db.VarChar(64)
+  userAgent     String?        @map("user_agent") @db.VarChar(512)
+  correlationId String         @map("correlation_id") @db.VarChar(100)
+  requestId     String?        @map("request_id") @db.VarChar(100)
+  before        Json?
+  after         Json?
+  metadata      Json?
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  actor         User?          @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([actorId, module, operation])
+  @@index([correlationId])
+  @@map("audit_logs")
 }

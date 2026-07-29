@@ -1,7 +1,16 @@
 # Valenet Quality Hub
 
-Fundação técnica do monorepo da plataforma de gestão da qualidade. A Sprint 01
-está concluída e a Sprint 02 da versão `0.1.0` está em validação final.
+## Administração e segurança
+
+A Sprint 3 (`v0.3.0`) está concluída e congelada. Ela adiciona gestão de
+usuários, estrutura organizacional, RBAC
+persistido, sessões revogáveis e auditoria corporativa. O frontend administrativo
+está disponível em `/login` e `/admin/*`; a API REST permanece versionada em
+`/api/v1`. Execute `pnpm prisma:seed` após as migrations para criar o catálogo
+inicial de permissões e associar o papel Administrador ao usuário bootstrap.
+
+Fundação técnica do monorepo da plataforma de gestão da qualidade. As Sprints 1,
+2 e 3 estão concluídas e congeladas; o projeto está pronto para iniciar a Sprint 4.
 
 ## Pré-requisitos
 
@@ -74,9 +83,10 @@ pnpm docker:up
 ```
 
 O comando constrói e inicia PostgreSQL, Redis, API e frontend em uma rede bridge
-privada, com hot reload nos dois aplicativos. As migrations pendentes são
-aplicadas automaticamente antes da API iniciar. Aguarde todos os serviços
-ficarem `healthy`:
+privada. Backend e frontend iniciam os artefatos já compilados, sem instalar
+dependências em runtime. As migrations pendentes são executadas por um container
+one-shot antes da API iniciar. Aguarde todos os serviços permanentes ficarem
+`healthy`:
 
 ```bash
 pnpm docker:ps
@@ -102,7 +112,7 @@ pnpm docker:up
 
 Depois, configure opcionalmente a conta inicial no `.env` e execute
 `pnpm --filter @valenet/backend prisma:seed` no host, ou
-`docker compose exec backend pnpm --filter @valenet/backend prisma:seed`.
+`docker compose run --rm migrate pnpm --filter @valenet/backend prisma:seed`.
 
 O `.env.example` documenta todas as variáveis. `.env.development` fornece
 valores locais não sensíveis e `.env.local` permite sobrescrevê-los sem versionar

@@ -1,8 +1,6 @@
 services:
   backend:
     restart: unless-stopped
-    environment:
-      CHOKIDAR_USEPOLLING: 'true'
 
   frontend:
     restart: unless-stopped

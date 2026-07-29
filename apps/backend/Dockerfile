@@ -26,10 +26,16 @@ ENV NODE_ENV=development
 EXPOSE 3001
 CMD ["pnpm", "--filter", "@valenet/backend", "dev"]
 
+FROM build AS migration
+ENV NODE_ENV=production
+CMD ["pnpm", "--filter", "@valenet/backend", "prisma:migrate:deploy"]
+
 FROM node:24-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=build --chown=node:node /prod/backend ./
+COPY --from=build --chown=node:node /workspace/node_modules/.prisma ./node_modules/.prisma
+RUN node -e "require('@prisma/client')"
 USER node
 EXPOSE 3001
 CMD ["node", "dist/main.js"]

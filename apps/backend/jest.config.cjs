@@ -5,6 +5,9 @@ module.exports = {
     '!src/**/*.module.ts',
     '!src/config/*.config.ts',
     '!src/config/index.ts',
+    '!src/generated/**',
+    '!src/**/dto/*.ts',
+    '!src/**/*dto.ts',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {

@@ -11,6 +11,7 @@ jest.setTimeout(30_000);
 describe('Authentication API', () => {
   const email = 'sprint1-auth-test@valenet.local';
   const password = 'S1-test-password!';
+  const roleCode = 'AUTH_TEST';
   let app: NestFastifyApplication;
   let prisma: PrismaService;
 
@@ -21,14 +22,26 @@ describe('Authentication API', () => {
     prisma = app.get(PrismaService);
     await prisma.authAuditLog.deleteMany({ where: { email } });
     await prisma.user.deleteMany({ where: { email } });
+    const role = await prisma.role.upsert({
+      where: { code: roleCode },
+      update: { isActive: true },
+      create: { name: 'Authentication test', code: roleCode },
+    });
     await prisma.user.create({
-      data: { email, passwordHash: await hash(password) },
+      data: {
+        name: 'Authentication test',
+        registration: 'AUTH-TEST',
+        email,
+        passwordHash: await hash(password),
+        roles: { create: { roleId: role.id, isDefault: true } },
+      },
     });
   });
 
   afterAll(async () => {
     await prisma.authAuditLog.deleteMany({ where: { email } });
     await prisma.user.deleteMany({ where: { email } });
+    await prisma.role.deleteMany({ where: { code: roleCode } });
     await app.close();
   });
 

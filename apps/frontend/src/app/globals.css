@@ -53,6 +53,83 @@ button {
 .welcome-card p {
   color: var(--ui-muted);
 }
+.admin-page {
+  display: grid;
+  gap: 1.5rem;
+}
+.page-heading {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.page-heading h1 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin: 0.35rem 0;
+}
+.page-heading p,
+.eyebrow {
+  color: var(--ui-muted);
+}
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.metrics-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+}
+.quick-links,
+.nav-links {
+  display: grid;
+  gap: 0.75rem;
+}
+.nav-links {
+  margin-top: 2rem;
+}
+.nav-links a,
+.quick-links a {
+  color: inherit;
+  padding: 0.65rem 0.75rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+.nav-links a:hover,
+.quick-links a:hover {
+  background: var(--ui-muted-background);
+}
+.form-card {
+  max-width: 56rem;
+}
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.form-grid .ui-alert,
+.form-actions {
+  grid-column: 1 / -1;
+}
+.table-actions {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+.login-card {
+  margin: 8vh auto;
+  max-width: 30rem;
+}
+.login-card .form-grid {
+  grid-template-columns: 1fr;
+}
 @media (max-width: 768px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -62,5 +139,12 @@ button {
   }
   .main-content {
     padding: 1rem;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .page-heading {
+    align-items: stretch;
+    flex-direction: column;
   }
 }
