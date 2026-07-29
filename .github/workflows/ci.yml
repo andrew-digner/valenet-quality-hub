@@ -48,12 +48,13 @@ jobs:
           cache: pnpm
           node-version: 22
       - run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        run: pnpm prisma:generate
       - run: pnpm docs:check
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm prisma:validate
-      - run: pnpm prisma:generate
       - run: pnpm --filter @valenet/backend prisma:migrate:deploy
       - run: pnpm test
       - run: pnpm build
