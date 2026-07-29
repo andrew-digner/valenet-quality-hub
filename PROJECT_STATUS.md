@@ -202,6 +202,7 @@ Legenda: `Backlog` = não iniciada; `Em andamento` = execução iniciada; `Concl
 | Sprint 02 | 28/07/2026 | Implementação concluída; US009 e US010 em Review por Docker indisponível e cobertura insuficiente.                 |
 | Sprint 02 | 29/07/2026 | lint-staged ajustado para particionamento portátil de argumentos e execução sem sobreposição no Windows.           |
 | Sprint 02 | 29/07/2026 | CI corrigido para gerar o Prisma Client após a instalação e antes de lint, tipos, testes e build.                  |
+| Sprint 02 | 29/07/2026 | Ambiente de testes do CI unificado entre PostgreSQL, Turbo, Jest, Prisma e GitHub Actions.                         |
 
 # Métricas
 
