@@ -42,7 +42,7 @@ jobs:
       POSTGRES_USER: valenet
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           run_install: false
       - uses: actions/setup-node@v4
